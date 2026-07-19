@@ -1,0 +1,12 @@
+$kind: http-request
+name: List Reports - Filter by Type
+method: GET
+url: '{{baseUrl}}/api/core/reports/?lost_item=lost'
+order: 9000
+scripts:
+  - type: afterResponse
+    language: text/javascript
+    code: |-
+      pm.test("Status is 200", function () {
+          pm.response.to.have.status(200);
+      });

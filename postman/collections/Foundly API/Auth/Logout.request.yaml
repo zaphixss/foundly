@@ -1,0 +1,27 @@
+$kind: http-request
+name: Logout
+method: POST
+url: '{{baseUrl}}/api/auth/logout/'
+order: 11000
+auth:
+  type: bearer
+  credentials:
+    - key: token
+      value: '{{accessToken}}'
+headers:
+  - key: Content-Type
+    value: application/json
+body:
+  type: json
+  content: |-
+    {"refresh": "{{refreshToken}}"}
+scripts:
+  - type: afterResponse
+    language: text/javascript
+    code: |-
+      pm.test("Status is 200", function () {
+          pm.response.to.have.status(200);
+      });
+      pm.test("Response has detail", function () {
+          pm.expect(pm.response.json()).to.have.property('detail');
+      });

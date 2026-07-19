@@ -1,0 +1,37 @@
+$kind: http-request
+name: Update Report
+method: PUT
+url: '{{baseUrl}}/api/core/report/{{reportId}}/'
+order: 14000
+auth:
+  type: bearer
+  credentials:
+    - key: token
+      value: '{{accessToken}}'
+headers:
+  - key: Content-Type
+    value: application/json
+body:
+  type: json
+  content: |-
+    {
+      "user": 1,
+      "report_type": "lost",
+      "status": "claimed",
+      "category": 1,
+      "item_name": "Black Wallet",
+      "colour": "black",
+      "description": "Updated description",
+      "location": "Central Park",
+      "date_incident": "2026-07-15"
+    }
+scripts:
+  - type: afterResponse
+    language: text/javascript
+    code: |-
+      pm.test("Status is 200", function () {
+          pm.response.to.have.status(200);
+      });
+      pm.test("response.status equals claimed", function () {
+          pm.expect(pm.response.json().status).to.eql("claimed");
+      });

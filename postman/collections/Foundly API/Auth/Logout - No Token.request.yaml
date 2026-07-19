@@ -1,0 +1,24 @@
+$kind: http-request
+name: Logout - No Token
+method: POST
+url: '{{baseUrl}}/api/auth/logout/'
+order: 12000
+auth:
+  type: bearer
+  credentials:
+    - key: token
+      value: '{{accessToken}}'
+headers:
+  - key: Content-Type
+    value: application/json
+body:
+  type: json
+  content: |-
+    {}
+scripts:
+  - type: afterResponse
+    language: text/javascript
+    code: |-
+      pm.test("Status is 400", function () {
+          pm.response.to.have.status(400);
+      });

@@ -1,0 +1,15 @@
+$kind: http-request
+name: Get Category by ID
+method: GET
+url: '{{baseUrl}}/api/core/category/{{categoryId}}/'
+order: 4000
+scripts:
+  - type: afterResponse
+    language: text/javascript
+    code: |-
+      pm.test("Status is 200", function () {
+          pm.response.to.have.status(200);
+      });
+      pm.test("Response has title", function () {
+          pm.expect(pm.response.json()).to.have.property('title');
+      });

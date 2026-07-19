@@ -1,0 +1,15 @@
+$kind: http-request
+name: Search Reports
+method: GET
+url: '{{baseUrl}}/api/core/reports/search/?search_item=wallet'
+order: 16000
+scripts:
+  - type: afterResponse
+    language: text/javascript
+    code: |-
+      pm.test("Status is 200", function () {
+          pm.response.to.have.status(200);
+      });
+      pm.test("Response is an array", function () {
+          pm.expect(pm.response.json()).to.be.an('array');
+      });

@@ -1,0 +1,22 @@
+# Virtual Environments
+env/
+venv/
+ENV/
+.venv/
+
+# Django / SQLite Database
+db.sqlite3
+*.log
+
+# Sensitive environment variables
+.env
+
+# Python cache (compiled bytecode)
+__pycache__/
+*.py[cod]
+*$py.class
+
+# IDE / OS settings
+.vscode/
+.idea/
+.DS_Store

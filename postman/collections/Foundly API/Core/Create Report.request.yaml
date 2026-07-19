@@ -1,0 +1,41 @@
+$kind: http-request
+name: Create Report
+method: POST
+url: '{{baseUrl}}/api/core/reports/'
+order: 10000
+auth:
+  type: bearer
+  credentials:
+    - key: token
+      value: '{{accessToken}}'
+headers:
+  - key: Content-Type
+    value: application/json
+body:
+  type: json
+  content: |-
+    {
+      "user": 1,
+      "report_type": "lost",
+      "status": "open",
+      "category": 1,
+      "item_name": "Black Wallet",
+      "colour": "black",
+      "description": "Lost my black leather wallet near the park",
+      "location": "Central Park",
+      "date_incident": "2026-07-15"
+    }
+scripts:
+  - type: afterResponse
+    language: text/javascript
+    code: |-
+      pm.test("Status is 200", function () {
+          pm.response.to.have.status(200);
+      });
+      pm.test("Response has id", function () {
+          pm.expect(pm.response.json()).to.have.property('id');
+      });
+      pm.test("Response has item_name", function () {
+          pm.expect(pm.response.json()).to.have.property('item_name');
+      });
+      pm.collectionVariables.set("reportId", pm.response.json().id);

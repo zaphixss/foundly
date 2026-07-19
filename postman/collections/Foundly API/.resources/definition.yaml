@@ -1,0 +1,23 @@
+$kind: collection
+name: Foundly API
+variables:
+  - key: baseUrl
+    value: 'http://127.0.0.1:8000'
+    type: default
+    enabled: true
+  - key: accessToken
+    value: ''
+    type: default
+    enabled: true
+  - key: refreshToken
+    value: ''
+    type: default
+    enabled: true
+  - key: categoryId
+    value: ''
+    type: default
+    enabled: true
+  - key: reportId
+    value: ''
+    type: default
+    enabled: true

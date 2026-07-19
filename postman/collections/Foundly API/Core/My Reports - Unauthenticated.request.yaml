@@ -1,0 +1,14 @@
+$kind: http-request
+name: My Reports - Unauthenticated
+method: GET
+url: '{{baseUrl}}/api/core/reports/user/'
+order: 19000
+auth:
+  type: noauth
+scripts:
+  - type: afterResponse
+    language: text/javascript
+    code: |-
+      pm.test("Status is 401", function () {
+          pm.response.to.have.status(401);
+      });

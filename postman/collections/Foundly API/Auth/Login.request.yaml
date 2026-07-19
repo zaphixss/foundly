@@ -1,0 +1,30 @@
+$kind: http-request
+name: Login
+method: POST
+url: '{{baseUrl}}/api/auth/login/'
+order: 4000
+headers:
+  - key: Content-Type
+    value: application/json
+body:
+  type: json
+  content: |-
+    {
+      "email": "testuser@example.com",
+      "password": "TestPass123!"
+    }
+scripts:
+  - type: afterResponse
+    language: text/javascript
+    code: |-
+      pm.test("Status is 200", function () {
+          pm.response.to.have.status(200);
+      });
+      pm.test("Response has access token", function () {
+          pm.expect(pm.response.json()).to.have.property('access');
+      });
+      pm.test("Response has refresh token", function () {
+          pm.expect(pm.response.json()).to.have.property('refresh');
+      });
+      pm.collectionVariables.set("accessToken", pm.response.json().access);
+      pm.collectionVariables.set("refreshToken", pm.response.json().refresh);
