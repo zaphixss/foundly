@@ -140,9 +140,3 @@ SIMPLE_JWT = {
     'AUTH_HEADER_TYPES': ('Bearer',),
 }
 
-SPECTACULAR_SETTINGS = {
-    'TITLE': 'Foundly API',
-    'DESCRIPTION': 'API documentation for reports, categories, and search.',
-    'VERSION': '1.0.0',
-    'SERVE_INCLUDE_SCHEMA': False,
-}
